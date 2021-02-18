@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}
+				Bienvenue
+			{% endblock %}
+		</title>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{ path('accueil') }}">Agence</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+					<div class="navbar-nav">
+						<a class="nav-link" {% if menu_courant is defined and menu_courant == 'biens' %} active {% endif %} href="{{ path('biens') }}">Liste des biens</a>
+						<a class="nav-link" href="#">Pricing</a>
+						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+					</div>
+				</div>
+			</div>
+		</nav>
+	</head>
+	<body>
+		{% block body %}{% endblock %}
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</body>
+</html>

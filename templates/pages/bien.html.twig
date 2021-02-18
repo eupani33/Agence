@@ -1,0 +1,85 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Detail du bien
+{% endblock %}
+
+{% block body %}
+
+	<div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8"></div>
+
+				<div class="container mt-4">
+					<div class="row">
+						<div class="col-md-8"></div>
+
+						<div class="col-md-4">
+							<h1>{{  liste_biens.titre }}</h1>
+							<h2>{{ liste_biens.pieces }}
+								pièces -
+								{{ liste_biens.surface }}
+								m²</h2>
+							<div class="text-primary" style="font-size: 4rem; font-weight: bold; ">{{liste_biens.prixFormat }}
+								€
+							</div>
+							<a href="#" class="btn btn-primary">
+								Contacter l'Agence</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container mt-4">
+				<p>
+					{{ liste_biens.description | nl2br }}
+				</p>
+
+				<div class="row">
+					<div class="col-md-8">
+						<h2>
+							Caractéristiques</h2>
+						<table class="table table-striped">
+							<tr>
+								<td>Surface habitable</td>
+								<td>{{ liste_biens.surface }}m²</td>
+							</tr>
+							<tr>
+								<td>Nombre de pièces</td>
+								<td>{{ liste_biens.pieces }}</td>
+							</tr>
+
+							<tr>
+								<td>Nombre de chambres</td>
+								<td>{{ liste_biens.chambre }}</td>
+							</tr>
+
+							<tr>
+								<td>Type de chauffage</td>
+								<td>
+									{{ liste_biens.chauffage.type }}</td>
+							</tr>
+
+							<tr>
+								<td>Etage</td>
+								<td>{{ liste_biens.etage }}</td>
+							</tr>
+
+							<tr>
+								<td>Nombre de chambres</td>
+								<td>{{ liste_biens.chambre }}</td>
+							</tr>
+							<tr>
+								<td>Ville</td>
+								<td>{{ liste_biens.ville }}</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-md-4">
+						<h2>
+							Spécificités</h2>
+					</div>
+				</div>
+			</div>
+		{% endblock %}

@@ -42,7 +42,6 @@ class HomeController extends AbstractController
     public function biens(): Response
     {
         $liste_biens = $this->repository->findAllActif();
-        #dd($liste_biens);
 
         return $this->render('pages/biens.html.twig', [
             'menu_courant' => 'biens', 'liste_biens' => $liste_biens
@@ -64,11 +63,12 @@ class HomeController extends AbstractController
                 'slug' => $liste_biens->getSlug()
             ], 301);
         }
-        DD($liste_biens);
-        
+
         return $this->render('pages/bien.html.twig', [
             'menu_courant' => 'biens',
             'liste_biens' => $liste_biens
         ]);
     }
+
+   
 }

@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\Entity\Bien;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,37 +19,39 @@ class BienRepository extends ServiceEntityRepository
         parent::__construct($registry, Bien::class);
     }
 
-
     // /**
     //  * @return Bien[] Returns an array of Bien objects
     //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('b.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+    /**
+    * @return Bien[] Returns an array of Bien objects
+    */
+
     public function find_New()
     {
-        return $this->isActif()
-            ->orderBy('p.date_creation', 'DESC')
+        return $this->findAllActif()
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }
 
-
-    // /**
-    //  * @return Bien[] Returns an array of Bien objects
-    //  */
     public function findAllActif()
     {
-        return $this->isActif()
-            ->orderBy('p.date_creation', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
-    }
-
-
-    private function isActif()
-    {
         return $this->createQueryBuilder('p')
-            ->Where('p.actif = true');
+            ->andWhere('p . actif = true');
     }
 
 

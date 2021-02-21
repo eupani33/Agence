@@ -3,10 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\BienRepository;
-#use Doctrine\DBAL\Types\StringType;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Mapping\Annotation\Slug;
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
@@ -26,32 +23,24 @@ class Bien
     private $titre;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
-
     private $description;
 
     /**
-     * @Gedmo\Slug(fields={"titre"})
-     * @ORM\Column(length=256, unique=true)
-     */
-    private $slug;
-
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $surface;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $pieces;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $chambre;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $piece;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -59,11 +48,9 @@ class Bien
     private $etage;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
-    private $prix;
-
-
+    private $adresse;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -71,34 +58,40 @@ class Bien
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $adresse;
-
-    /**
      * @ORM\Column(type="string", length=6)
      */
     private $cp;
 
     /**
-     * @ORM\Column(type="boolean", options={"default": true })
+     * @ORM\Column(type="boolean", options={"default":true})
      */
-    private $actif = true;
+    private $actif;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $date_creation;
+    private $dateAt;
+    
+    public function __construct()
+    {
+        $this->dateAt = new \DateTime();
+     }
 
     /**
-     * @ORM\OneToOne(targetEntity=Chauffage::class, inversedBy="identifiant", cascade={"persist", "remove"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Chauffage::class, inversedBy="biens")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $chauffage;
 
-    public function __construct()
-    {
-        $this->date_creation = new \DateTime();
-    }
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $prix;
 
     public function getId(): ?int
     {
@@ -109,13 +102,6 @@ class Bien
     {
         return $this->titre;
     }
-
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
 
     public function setTitre(string $titre): self
     {
@@ -148,18 +134,6 @@ class Bien
         return $this;
     }
 
-    public function getPieces(): ?int
-    {
-        return $this->pieces;
-    }
-
-    public function setPieces(int $pieces): self
-    {
-        $this->pieces = $pieces;
-
-        return $this;
-    }
-
     public function getChambre(): ?int
     {
         return $this->chambre;
@@ -168,6 +142,18 @@ class Bien
     public function setChambre(int $chambre): self
     {
         $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    public function getPiece(): ?int
+    {
+        return $this->piece;
+    }
+
+    public function setPiece(?int $piece): self
+    {
+        $this->piece = $piece;
 
         return $this;
     }
@@ -184,23 +170,17 @@ class Bien
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getAdresse(): ?string
     {
-        return $this->prix;
+        return $this->adresse;
     }
 
-    public function setPrix(?int $prix): self
+    public function setAdresse(string $adresse): self
     {
-        $this->prix = $prix;
+        $this->adresse = $adresse;
 
         return $this;
     }
-
-    public function getPrixFormat(): string
-    {
-        return number_format($this->prix, 0, ' ', ' ');
-    }
-
 
     public function getVille(): ?string
     {
@@ -210,18 +190,6 @@ class Bien
     public function setVille(string $ville): self
     {
         $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): self
-    {
-        $this->adresse = $adresse;
 
         return $this;
     }
@@ -245,31 +213,62 @@ class Bien
 
     public function setActif(bool $actif): self
     {
-        $this->solder = $actif;
+        $this->actif = $actif;
 
         return $this;
     }
 
-    public function getDateCreation(): ?\DateTimeInterface
+    public function getDateAt(): ?\DateTimeInterface
     {
-        return $this->date_creation;
+        return $this->dateAt;
     }
 
-    public function setDateCreation(\DateTimeInterface $date_creation): self
+     
+    public function setDateAt(\DateTimeInterface $dateAt): self
     {
-        $this->date_creation = $date_creation;
+
+        $this->dateAt = $dateAt();
 
         return $this;
     }
 
-    public function getChauffage(): ?chauffage
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getChauffage(): ?Chauffage
     {
         return $this->chauffage;
     }
 
-    public function setChauffage(?chauffage $chauffage): self
+    public function setChauffage(?Chauffage $chauffage): self
     {
         $this->chauffage = $chauffage;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+    
+    public function getprixFormat(): string
+    {
+        return number_format($this->prix, 0, ' ', ' ');
+
+    }
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

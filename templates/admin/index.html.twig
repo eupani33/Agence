@@ -19,11 +19,23 @@
                 {% for biens in liste_biens %}
                     <tr>
                         <td>{{biens.id}}</td>
-                        <td>{{ biens.titre }} </td>
-                        <td><a href="{{ path('admin.edit',{id: biens.id}) }}" class="btn btn-primary">Editer</a> </td>
+                        <td>{{ biens.titre }}
+                        </td>
+                        <td>
+                            <a href="{{ path('admin.edit',{id: biens.id}) }}" class="btn btn-primary" >Editer</a>
+                            <form method="post" action="{{ path('admin.delete', {id: biens.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value= ="{{ csrf_token('delete' ~ biens.id ) }}">
+                                <button div class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+
+        <div class="text-right">
+            <a  href=  class="btn btn-outline-primary" = ="{{ path('admin.new') }}">Ajouter</a>
+        </p>
     </div>
 {% endblock %}

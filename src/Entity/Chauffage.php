@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ChauffageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,9 +25,19 @@ class Chauffage
     private $type;
 
     /**
-     * @ORM\OneToOne(targetEntity=Bien::class, mappedBy="chauffage", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Bien::class, mappedBy="chauffage")
      */
-    private $identifiant;
+    private $biens;
+
+    public function __construct()
+    {
+        $this->biens = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getType(): ?string
     {
@@ -39,24 +51,32 @@ class Chauffage
         return $this;
     }
 
-    public function getIdentifiant(): ?Bien
+    /**
+     * @return Collection|Bien[]
+     */
+    public function getBiens(): Collection
     {
-        return $this->identifiant;
+        return $this->biens;
     }
 
-    public function setIdentifiant(?Bien $identifiant): self
+    public function addBien(Bien $bien): self
     {
-        // unset the owning side of the relation if necessary
-        if ($identifiant === null && $this->identifiant !== null) {
-            $this->identifiant->setChauffage(null);
+        if (!$this->biens->contains($bien)) {
+            $this->biens[] = $bien;
+            $bien->setChauffage($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($identifiant !== null && $identifiant->getChauffage() !== $this) {
-            $identifiant->setChauffage($this);
-        }
+        return $this;
+    }
 
-        $this->identifiant = $identifiant;
+    public function removeBien(Bien $bien): self
+    {
+        if ($this->biens->removeElement($bien)) {
+            // set the owning side to null (unless already changed)
+            if ($bien->getChauffage() === $this) {
+                $bien->setChauffage(null);
+            }
+        }
 
         return $this;
     }

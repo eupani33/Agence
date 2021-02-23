@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
@@ -29,6 +30,7 @@ class Bien
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(min =  9, max = 1000)
      */
     private $surface;
 
@@ -59,6 +61,7 @@ class Bien
 
     /**
      * @ORM\Column(type="string", length=6)
+     * @Assert\Regex("/^[0-9]{5}/")
      */
     private $cp;
 

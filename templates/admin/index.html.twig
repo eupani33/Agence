@@ -21,7 +21,7 @@
                         <td>{{biens.id}}</td>
                         <td>{{ biens.titre }}
                         </td>
-                        <  td>
+                        <td>
                             <a href="{{ path('admin.edit',{id: biens.id}) }}" class="btn btn-primary" >Editer</a>
                             <form method="post" action="{{ path('admin.delete', {id: biens.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
                                 <input type="hidden" name="_method" value="DELETE">

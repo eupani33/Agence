@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=BienRepository::class)
@@ -74,20 +75,22 @@ class Bien
      * @ORM\Column(type="datetime")
      */
     private $dateAt;
-    
+
     public function __construct()
     {
         $this->dateAt = new \DateTime();
-     }
+    }
+
 
     /**
+     * @Gedmo\Slug(fields={"titre"})
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
 
     /**
      * @ORM\ManyToOne(targetEntity=Chauffage::class, inversedBy="biens")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $chauffage;
 
@@ -226,7 +229,7 @@ class Bien
         return $this->dateAt;
     }
 
-     
+
     public function setDateAt(\DateTimeInterface $dateAt): self
     {
 
@@ -263,11 +266,10 @@ class Bien
     {
         return $this->prix;
     }
-    
+
     public function getprixFormat(): string
     {
         return number_format($this->prix, 0, ' ', ' ');
-
     }
     public function setPrix(int $prix): self
     {

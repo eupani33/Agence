@@ -2,6 +2,7 @@
 symfony server:start -d
 npm run dev-server
 
+git status
 git add .
 git commit -m "nom"
 git branch -M main

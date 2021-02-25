@@ -1,14 +1,22 @@
 {% extends "base.html.twig" %}
 
 {% block title %}
-	Liste des biens
+    Liste des biens
 {% endblock %}
+
 {% block body %}
-	<div class="container mt-3">
+    <div class="container mt-4">
+        <h1>
+            Voir tous nos biens
+        </h1>
 
-		<p>
-			Liste des biens
-		</p>
-	</div>
+        <div class="row">
 
+            {% for biens in liste_biens %}
+                <div class="col-md-4">
+                    {% include "pages/_bien.html.twig" %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>{% endblock %}

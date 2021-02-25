@@ -9,8 +9,9 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Bien|null find($id, $lockMode = null, $lockVersion = null)
  * @method Bien|null findOneBy(array $criteria, array $orderBy = null)
- * @method Bien[]    findAll()
- * @method Bien[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Bien[]  findAll()
+ * @method Bien[]  find_All()
+ * @method Bien[]  findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class BienRepository extends ServiceEntityRepository
 {
@@ -42,18 +43,25 @@ class BienRepository extends ServiceEntityRepository
 
     public function find_New()
     {
-        return $this->findAllActif()
+        return $this->findActif()
             ->setMaxResults(5)
             ->getQuery()
             ->getResult();
     }
 
-    public function findAllActif()
+    public function findActif()
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p . actif = true');
     }
 
+
+    public function find_All()
+    {
+        return $this->findActif()
+            ->getQuery()
+            ->getResult();
+    }
 
     /*
     public function findOneBySomeField($value): ?Bien

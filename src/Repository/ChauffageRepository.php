@@ -19,22 +19,13 @@ class ChauffageRepository extends ServiceEntityRepository
         parent::__construct($registry, Chauffage::class);
     }
 
-    // /**
-    //  * @return Chauffage[] Returns an array of Chauffage objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAll()
     {
         return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Chauffage

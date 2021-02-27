@@ -79,6 +79,7 @@ class Bien
     public function __construct()
     {
         $this->dateAt = new \DateTime();
+        $this->actif = true;
     }
 
 

@@ -1,16 +1,9 @@
-<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title">
-            <a href= ="{{ path('bien',{id : biens.id, slug: biens.slug }) }}">{{ biens.titre}}</a>
-            <p class="card-text">
-                {{ biens.ville }}
-                ({{ biens.cp }})
-            </p>
-            <div class="text-primary" style="font-size:2rem; font-weight: bold">
-                {{biens.prixFormat}}
-                €
-
-            </div>
+<div class="card mb-3">
+    <div class="card-body"> 
+        <h5 class="card-title"> <a href="{{ path('bien',{id : biens.id, slug: biens.slug} ) }}"> {{ biens.titre }}</a></h5>
+            <div class="card-text"> {{biens.description | nl2br}} </div>
+            <div class="card-text"> {{ biens.ville }}   ({{ biens.cp }})</div>
+            <div class="text-primary" style="font-size:2rem; font-weight: bold"> {{biens.prixFormat}} €</div>
         </div>
     </div>
 </div>

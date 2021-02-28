@@ -1,5 +1,5 @@
-/Applications/MAMP/Library/bin/mysqld_safe 
 symfony server:start -d
+/Applications/MAMP/Library/bin/mysqld_safe 
 npm run dev-server
 
 git status

@@ -9,6 +9,10 @@ git branch -M Main
 git push -u Agence Main
 
  
- git branch -u origin/Main Main
-  
-
+echo "# Agence" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/eupani33/Agence.git
+git push -u origin main

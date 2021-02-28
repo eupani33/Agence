@@ -7,5 +7,10 @@
     "editor.formatOnSave": true,
     "emmet.includeLanguages": {
         "twig": "html"
-    }
+    },
+    "editor.formatOnPaste": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnType": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.codeLens": true
 }

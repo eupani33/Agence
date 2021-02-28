@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Bien;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Migrations\Query\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -55,8 +56,17 @@ class BienRepository extends ServiceEntityRepository
             ->andWhere('p . actif = true');
     }
 
+    /**
+    * @return Query
+    */
 
-    public function find_All()
+    public function find_Query()     
+    {
+        return $this->findActif()
+            ->getQuery();
+    }
+  
+    public function find_All()  
     {
         return $this->findActif()
             ->getQuery()

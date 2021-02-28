@@ -7,9 +7,12 @@ use App\Entity\Bien;
 #use App\Entity\Chauffage;
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping\Id;
+use Knp\Component\Pager\Paginator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends AbstractController
 {
@@ -30,7 +33,7 @@ class HomeController extends AbstractController
     {
         $liste_biens = $this->repository->find_New();
         return $this->render('pages/home.html.twig', [
-            'liste_biens' => $liste_biens
+            'liste_biens' => $liste_biens  
         ]);
     }
 
@@ -39,10 +42,14 @@ class HomeController extends AbstractController
      * @return Response
      */
 
-    public function biens(): Response
+    public function biens(PaginatorInterface $paginator, Request $request): Response
     {
-        $liste_biens = $this->repository->find_All();
-
+        #avant la pagination $liste_biens = $this->repository->find_All();
+        $liste_biens = $paginator->paginate(
+            $this->repository->find_Query(),
+            $request->query->getInt('page', 1), //page par defaut
+            3 //nbr biens par page
+        );
 
 
         return $this->render('pages/biens.html.twig', [

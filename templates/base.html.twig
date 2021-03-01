@@ -21,7 +21,7 @@
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
 						<a class="nav-link" {% if menu_courant is defined and menu_courant == 'biens' %} active {% endif %} href="{{ path('biens') }}">Liste des biens</a>
-						<a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="{{ path('admin.index') }}">admin</a>
 						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 					</div>
 				</div>
@@ -52,4 +52,13 @@
 		{% endblock %}
 
 	</body>
+
+
+   
+<footer class="text-center text-white fixed-bottom" style="background-color: #0d6efd">
+        <div class="text-center p-3" style="background-color: ##0d6efd">
+            © 2020 Copyright:
+            <a class="text-white" href="https://paniagua.fr/">paniagua.fr</a>
+        </div>
+    </footer>
 </html>

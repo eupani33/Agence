@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Bien;
+use App\Entity\RechercheBien;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Migrations\Query\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -57,16 +58,30 @@ class BienRepository extends ServiceEntityRepository
     }
 
     /**
-    * @return Query
-    */
+     * @return Query
+     */
 
-    public function find_Query()     
+    public function find_Query(RechercheBien $recherche)
     {
-        return $this->findActif()
-            ->getQuery();
+        $query = $this->findActif();
+
+        if ($recherche->getPrixMax()) {
+            $query = $query
+                ->andWhere('p.prix <= :prixmax')
+                ->setParameter('prixmax', $recherche->getPrixMax());
+        }
+
+
+        if ($recherche->getSurfaceMin()) {
+            $query = $query
+                ->andWhere('p.surface <= :surfacexmin')
+                ->setParameter('surfacexmin', $recherche->getSurfaceMin());
+        }
+
+        return $query->getQuery();
     }
-  
-    public function find_All()  
+
+    public function find_All()
     {
         return $this->findActif()
             ->getQuery()

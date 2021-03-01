@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Repository;
 use App\Entity\Bien;
-#use App\Entity\Chauffage;
+use App\Entity\RechercheBien;
 use App\Repository\BienRepository;
 use Doctrine\ORM\Mapping\Id;
 use Knp\Component\Pager\Paginator;
@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\RechercheType;
 
 class HomeController extends AbstractController
 {
@@ -33,7 +34,7 @@ class HomeController extends AbstractController
     {
         $liste_biens = $this->repository->find_New();
         return $this->render('pages/home.html.twig', [
-            'liste_biens' => $liste_biens  
+            'liste_biens' => $liste_biens
         ]);
     }
 
@@ -44,17 +45,22 @@ class HomeController extends AbstractController
 
     public function biens(PaginatorInterface $paginator, Request $request): Response
     {
-        #avant la pagination $liste_biens = $this->repository->find_All();
+
+        $recherche = new RechercheBien;
+        $form = $this->createForm(RechercheType::class, $recherche);
+        $form->handleRequest($request);
+
         $liste_biens = $paginator->paginate(
-            $this->repository->find_Query(),
+            $this->repository->find_Query($recherche),
             $request->query->getInt('page', 1), //page par defaut
-            3 //nbr biens par page
+            9 //nbr biens par page
         );
 
 
         return $this->render('pages/biens.html.twig', [
             'menu_courant' => 'biens',
-            'liste_biens' => $liste_biens
+            'liste_biens' => $liste_biens,
+            'form' => $form->createView() 
         ]);
     }
 

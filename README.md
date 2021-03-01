@@ -5,8 +5,8 @@ npm run dev-server
 git status
 git add .
 git commit -m "nom"
-git branch -M Main
-git push -u Agence Main
+git branch -M main
+git push -u origine main
 
  
 echo "# Agence" >> README.md
@@ -15,4 +15,4 @@ git add README.md
 git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/eupani33/Agence.git
-git push -u origin main
+git push -u origin mainnpm run dev-server

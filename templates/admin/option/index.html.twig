@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Gérer les options' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Gérer les options</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                     
+                    <th>Dénomisation</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for option in options %}
+                    <tr>
+                        <td>{{ option.nom }}</td>
+                        <td>
+                            <a href="{{ path('option.edit',{id: option.id}) }}" class="btn btn-primary" >Editer</a>
+                            <form method="post" action="{{ path('option.delete', {id: option.id}) }}" style="display: inline-block" onsubmit="return confirm('Etes-vous sûr ?')">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <input type="hidden" name="_token" value= ="{{ csrf_token('delete' ~ option.id ) }}">
+                                <button div class="btn btn-danger">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="text-right">
+            <a  href="{{ path('option.new') }}"  class="btn btn-outline-primary">Ajouter</a>
+        </p>
+    </div>
+{% endblock %}

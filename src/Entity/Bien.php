@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BienRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -80,6 +82,7 @@ class Bien
     {
         $this->dateAt = new \DateTime();
         $this->actif = true;
+        $this->relations = new ArrayCollection();
     }
 
 
@@ -99,6 +102,11 @@ class Bien
      * @ORM\Column(type="integer")
      */
     private $prix;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="biens")
+     */
+    private $relations;
 
     public function getId(): ?int
     {
@@ -275,6 +283,42 @@ class Bien
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getRelation(): ?string
+    {
+        return $this->relation;
+    }
+
+    public function setRelation(string $relation): self
+    {
+        $this->relation = $relation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Option[]
+     */
+    public function getRelations(): Collection
+    {
+        return $this->relations;
+    }
+
+    public function addRelation(Option $relation): self
+    {
+        if (!$this->relations->contains($relation)) {
+            $this->relations[] = $relation;
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Option $relation): self
+    {
+        $this->relations->removeElement($relation);
 
         return $this;
     }

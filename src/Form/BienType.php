@@ -30,7 +30,6 @@ class BienType extends AbstractType
             ->add('adresse')
             ->add('cp')
             ->add('actif')
-            //->add('slug')
             ->add('chauffage', EntityType::class, array(
                 'class' => Chauffage::class,
                 'choice_label' => 'type',

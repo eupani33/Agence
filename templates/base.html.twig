@@ -1,64 +1,73 @@
-<!DOCTYPE html>
+<!DOCTYPE    html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>
-			{% block title %}
-				Bienvenue
-			{% endblock %}
-		</title>
-		{% block stylesheets %}
-			{{ encore_entry_link_tags('app') }}
-		{% endblock %}
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Bienvenue
+            {% endblock %}
+        </title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
 
 
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="{{ path('accueil') }}">Agence</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-					<div class="navbar-nav">
-						<a class="nav-link" {% if menu_courant is defined and menu_courant == 'biens' %} active {% endif %} href="{{ path('biens') }}">Liste des biens</a>
-                        <a class="nav-link" href="{{ path('admin.index') }}">admin</a>
-						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-					</div>
-				</div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('accueil') }}">
+                    Agence
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link" { active {   {% if menu_courant is defined and menu_courant == 'biens' %} {% endif %} href="{{ path('biens') }}">
+                            Liste des biens
+                        </a>
+                        <a class="nav-link" href="{{ path('admin.index') }}">
+                            admin
+                        </a>
+                        <a class="nav-link" href="{{ path ('option.index') }}" tabindex="-1" aria-disabled="true">
+                            Options
+                        </a>
+                    </div>
+                </div>
                 {% if app.user %}
                     <url class="navbar-nav">
                         <li class="nav-item">
-                            <a href="{{ path('app_logout') }}" class="nav-link">deconnecter</a>
+                            <a class="nav-link" href= "{{ path('app_logout') }}">
+                                deconnecter
+                            </a>
                         </li>
                     </ul>
                 {% else %}
-                     <url class="navbar-nav">
-                        <li class="nav-item">
-                            <a href="{{ path('app_login') }}" class="nav-link">connexion</a>
-                        </li>
+                    <url class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">connexion</a></li>
                     </ul>
                 {% endif %}
 
-			</div>
-		</nav>
-	</head>
+            </div>
+        </nav>
+    </head>
 
 
+    <body>
+        {% block body %}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
 
-	<body>
-		{% block body %}{% endblock %}
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-
-	</body>
+    </body>
 
 
-   
-<footer class="text-center text-white fixed-bottom" style="background-color: #0d6efd">
+    <footer class="text-center text-white fixed-bottom" style="background-color: #0d6efd">
         <div class="text-center p-3" style="background-color: ##0d6efd">
             © 2020 Copyright:
-            <a class="text-white" href="https://paniagua.fr/">paniagua.fr</a>
+            <a class="text-white" href="https://paniagua.fr/">
+                paniagua.fr
+            </a>
         </div>
     </footer>
 </html>

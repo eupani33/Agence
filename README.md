@@ -1,7 +1,6 @@
 symfony server:start -d
 /Applications/MAMP/Library/bin/mysqld_safe 
 npm run dev-server
-
 git status
 git add .
 git commit -m "nom"

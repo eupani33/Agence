@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Bien;
+use App\Entity\Option;
 use App\Entity\RechercheBien;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Migrations\Query\Query;
@@ -76,6 +77,17 @@ class BienRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('p.surface <= :surfacexmin')
                 ->setParameter('surfacexmin', $recherche->getSurfaceMin());
+        }
+
+
+        if ($recherche->getOptions()->count() > 0) {
+            $k = 0;
+            foreach ($recherche->getOptions() as $k => $option) {
+                $k++;
+                 $query = $query
+                    ->andWhere(":option$k MEMBER p.options")
+                    ->setParameter("option$k", $option);
+            }
         }
 
         return $query->getQuery();

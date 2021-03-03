@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\RechercheBien;
+use App\Entity\Option;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,6 +28,13 @@ class RechercheType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Budget Max'
                 ]
+            ])
+            ->add('options', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'class' => Option::class,
+                'choice_label' => 'nom',
+                'multiple' => true
             ]);
     }
 
@@ -42,6 +51,6 @@ class RechercheType extends AbstractType
     }
     public function getBlockPrefix()
     {
-        return ''; 
+        return '';
     }
 }

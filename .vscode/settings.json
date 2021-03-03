@@ -1,7 +1,7 @@
 {
     "twig-language-2.endComma": "never",
     "twig-language-2.indentStyle": "space",
-    "twig-language-2.unformatted": true,
+    "twig-language-2.unformatted": false,
     "twig-language-2.variableList": "list",
     "php.suggest.basic": false,
     "editor.formatOnSave": true,

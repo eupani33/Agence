@@ -106,7 +106,7 @@ class Bien
     /**
      * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="biens")
      */
-    private $relations;
+    private $options;
 
     public function getId(): ?int
     {
@@ -287,14 +287,14 @@ class Bien
         return $this;
     }
 
-    public function getRelation(): ?string
+    public function getOptions(): ?string
     {
-        return $this->relation;
+        return $this->options;
     }
 
-    public function setRelation(string $relation): self
+    public function setOptions(string $options): self
     {
-        $this->relation = $relation;
+        $this->relation = $options;
 
         return $this;
     }
@@ -304,21 +304,21 @@ class Bien
      */
     public function getRelations(): Collection
     {
-        return $this->relations;
+        return $this->options;
     }
 
-    public function addRelation(Option $relation): self
+    public function addRelation(Option $options): self
     {
-        if (!$this->relations->contains($relation)) {
-            $this->relations[] = $relation;
+        if (!$this->options->contains($options)) {
+            $this->options[] = $options;
         }
 
         return $this;
     }
 
-    public function removeRelation(Option $relation): self
+    public function removeRelation(Option $options): self
     {
-        $this->relations->removeElement($relation);
+        $this->options->removeElement($options);
 
         return $this;
     }

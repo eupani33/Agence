@@ -81,5 +81,5 @@ class AdminOptionController extends AbstractController
             $this->addFlash('succes', 'Suppression realisée');
         }  
         return $this->redirectToRoute('option.index');
-    }
+    } 
 }

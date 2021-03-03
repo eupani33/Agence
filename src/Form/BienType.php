@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Bien;
 use App\Entity\Chauffage;
+use App\Entity\Option;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,17 +30,25 @@ class BienType extends AbstractType
             ->add('ville')
             ->add('adresse')
             ->add('cp')
+            ->add('relations', EntityType::class, [
+                    'class'=> Option::class ,
+                    'choice_label'=>'nom',
+                    'multiple'=>true
+                    ])
+
             ->add('actif')
-            ->add('chauffage', EntityType::class, array(
-                'class' => Chauffage::class,
-                'choice_label' => 'type',
-            ));
+            ->add('chauffage',  EntityType::class,[
+                    'class' => Chauffage::class,
+                    'choice_label' => 'type' ]
+
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Bien::class,
+            'translation_domain' => 'form'
         ]);
     }
 }
